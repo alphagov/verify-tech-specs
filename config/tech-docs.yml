@@ -3,7 +3,7 @@ host: docs.registers.service.gov.uk
 
 # Header-related options
 show_govuk_logo: true
-service_name: Registers
+service_name: Verify
 service_link: https://www.registers.service.gov.uk/
 phase: Alpha
 
