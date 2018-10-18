@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/alphagov/middleman-search.git
+  revision: 50d072378c6f92a78ea02fed366ec6453aea8552
+  specs:
+    middleman-search (0.10.0)
+      execjs (~> 2.6)
+      middleman-core (>= 3.2)
+      nokogiri (~> 1.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -18,7 +27,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    commonmarker (0.17.13)
+    commonmarker (0.18.0)
       ruby-enum (~> 0.5)
     compass (1.0.3)
       chunky_png (~> 1.2)
@@ -116,10 +125,6 @@ GEM
       em-websocket (~> 0.5.1)
       middleman-core (>= 3.3)
       rack-livereload (~> 0.3.15)
-    middleman-search (0.10.0)
-      middleman-core (>= 3.2)
-      nokogiri (~> 1.6)
-      therubyracer (~> 0.12.2)
     middleman-sprockets (4.0.0)
       middleman-core (~> 4.0)
       sprockets (>= 3.0)
@@ -176,7 +181,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  govuk_tech_docs (~> 1.6.1)
+  govuk_tech_docs
+  middleman-search!
   therubyracer
   tzinfo-data
   wdm (~> 0.1.0)

@@ -1,23 +1,23 @@
 # Host to use for canonical URL generation (without trailing slash)
-host: docs.registers.service.gov.uk
+#host: docs.registers.service.gov.uk
 
 # Header-related options
 show_govuk_logo: true
-service_name: Verify
-service_link: https://www.registers.service.gov.uk/
-phase: Alpha
+service_name: Verify Technical Specifications
+service_link: https://govuk-verify.cloudapps.digital/
+phase: TEST
 
 # Links to show on right-hand-side of header
 header_links:
-  Get data: https://www.registers.service.gov.uk/registers
-  Support: https://www.registers.service.gov.uk/support
+  Google: https://www.google.com
   Documentation: /
 
 # Tracking ID from Google Analytics (e.g. UA-XXXX-Y)
-ga_tracking_id: UA-86101042-3
+#ga_tracking_id:
 
-google_site_verification: "IJ5HOXpZrISM6la-YO_iX0rBUC5YFftpexygcKLsNs4"
+# google_site_verification:
 
 # Multi-page options
 multipage_nav: true
 collapsible_nav: true
+max_toc_heading_level: 2

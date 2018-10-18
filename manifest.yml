@@ -1,10 +1,10 @@
 ---
 applications:
-- name: registers-docs
+- name: verify-tech-spec
   memory: 64M
   instances: 2
   buildpack: staticfile_buildpack
   routes:
-    - route: docs.registers.service.gov.uk
+    - route: verify-tech-spec.cloudapps.digital
   services:
     - logit-ssl-drain
