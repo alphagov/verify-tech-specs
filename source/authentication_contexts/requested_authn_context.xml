@@ -1,0 +1,12 @@
+<saml2p:RequestedAuthnContext
+  Comparison="minimum"
+  xsi:type="saml2p:ActionType">
+  <saml2:AuthnContextClassRef
+    xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion">
+    urn:uk:gov:cabinet-office:tc:saml:authn-context:level2
+  </saml2:AuthnContextClassRef>
+  <saml2:AuthnContextClassRef
+    xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion">
+    urn:uk:gov:cabinet-office:tc:saml:authn-context:level1
+  </saml2:AuthnContextClassRef>
+</saml2p:RequestedAuthnContext>

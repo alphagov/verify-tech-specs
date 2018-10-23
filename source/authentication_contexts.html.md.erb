@@ -1,0 +1,104 @@
+---
+title: Authentication Contexts 
+weight: 05
+---
+
+#Authentication Contexts
+
+##Abstract
+
+This specification defines the SAML authentication contexts to be used
+in conjunction with the Identity Assurance Hub Service Profile v1.2.
+
+##Introduction
+
+The Identity Assurance Hub Service SAML v2.0 Profile describes how
+service providers offering online government services can use any number
+of Hub Services for the brokering of a citizen authentication and
+enrichment of citizen attributes.
+
+This document describes the authentication contexts to be used in
+conjunction with the Hub Service SAML 2.0 Profile.
+
+###Notation
+
+The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
+"OPTIONAL" in this specification are to be interpreted as described in
+IETF RFC 2119 \[RFC 2119\].
+
+```
+Schema listings appear like this.
+```
+
+```
+Example code listings appear like this.
+```
+
+##Authentication Contexts
+
+This document describes the authentication contexts specified for use
+with the IDA hub service profile.
+
+When requesting authentication for an individual or responding to that
+request the level of assurance requested (or attained) must be
+specified. The IDA hub service profile conforms to the definitions of
+level of assurance as described in *GPG 45 -- Identity Proofing and
+Verification of an Individual*.
+
+This document describes how level of assurance is specified and recorded
+in interactions between the hub services, identity providers and service
+providers. An additional authentication context is included for the
+purpose of reporting fraud as detected by an identity provider, Level X.
+
+###Specifying Level of Assurance in <AuthnRequest>
+
+Service providers and the hub service will construct a
+<RequestedAuthnContext> within the <AuthnRequest> that describes the
+level of assurance required to enable the principal to transact with the
+service.
+
+An example <RequestedAuthnContext> can be seen below (in this case a
+request for a LoA of 1 as a minimum, LoA2 preferred).
+
+<%= xml 'authentication_contexts/requested_authn_context' -%>
+
+###Returning Level of Assurance in <Response>
+
+The <Assertion> returned in the <Response> to the hub service MUST
+include an <AuthnStatement> which includes the level of assurance to
+which the principal has been authenticated.
+
+An example <AuthnStatement> can be seen below (in this case level of
+assurance is LoA2).
+
+<%= xml 'authentication_contexts/authn_statement' -%>
+
+###Authentication Context values for Level of Assurance
+
+The schemas defined in section 2.3.1 onwards denote authentication
+contexts matching the levels of assurance described in *GPG 45 --
+Identity Proofing and Verification of an Individual*. These
+authentication contexts are to be used by service providers and the hub
+service when requesting authentication at a specific level of assurance,
+and by identity providers when responding to an authentication request.
+
+###Level 1 Authentication Context
+
+<%= xml 'authentication_contexts/level_1' -%>
+
+###Level 2 Authentication Context
+
+<%= xml 'authentication_contexts/level_2' -%>
+
+###Level 3 Authentication Context
+
+<%= xml 'authentication_contexts/level_3' -%>
+
+###Level 4 Authentication Context
+
+<%= xml 'authentication_contexts/level_4' -%>
+
+###Level X Authentication Context (Fraud Event)
+
+<%= xml 'authentication_contexts/fraud_event' -%>

@@ -1,0 +1,9 @@
+<saml2:AuthnStatement
+  SessionIndex="post-office"
+  xsi:type="saml2:AuthnStatementType">
+  <saml:AuthnContext>
+    <saml:AuthnContextClassRef>
+      urn:uk:gov:cabinet-office:tc:saml:authn-context:level2
+    </saml:AuthnContextClassRef>
+  </saml:AuthnContext>
+</saml2:AuthnStatement>
