@@ -1,0 +1,29 @@
+@startuml
+
+skinparam sequence {
+  shadowing false
+  arrowcolor black
+  ParticipantBackgroundColor #DEE0E2
+  ParticipantBorderColor black
+  fontsize 28
+  LifeLineBorderColor black
+  LifeLineBackgroundColor black
+}
+
+User -> IDP: follow prompt
+IDP -> User: Handover A: provide Journey initiation request
+User -> Hub: Handover A: send Journey initiation request to Hub
+Hub -> Hub: tracks session
+Hub -> User: Handover B: redirect to Replying Party
+User -> RP: Handover B: follow redirect to Replying Party
+RP -> User: Handover C: provide <AuthnRequest> to Hub
+User -> Hub : Handover C: send <AuthnRequest> to Hub
+Hub -> Hub: handover content
+Hub -> User: Handover D: provide <AuthnRequest> to IDP
+User -> IDP: Handover D: send <AuthnRequest> to IDP
+IDP -> User: Handover E: provide <Response> to Hub
+User -> Hub: Handover E: send <Response> to Hub
+Hub -> Hub: validates <Response> and facilitates matching
+Hub -> User: Handvoer F: provide <Response> to RP
+User -> RP: Handover F: send <Response> to RP
+@enduml
