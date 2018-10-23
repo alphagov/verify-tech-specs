@@ -1,0 +1,3 @@
+<saml:Attribute FriendlyName="Gender" Name="MDS_gender" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified">
+  <saml:AttributeValue xsi:type="ida:GenderType">Male</saml:AttributeValue>
+</saml:Attribute>

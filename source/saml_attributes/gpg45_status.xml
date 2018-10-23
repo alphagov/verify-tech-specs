@@ -1,0 +1,5 @@
+<saml:Attribute FriendlyName="GPG45Status"
+  Name="FECI_GPG45Status"
+  NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified">
+  <saml:AttributeValue xsi:type="ida:GPG45StatusType">FI01</saml:AttributeValue>
+</saml:Attribute>

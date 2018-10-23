@@ -1,0 +1,282 @@
+---
+title: SAML Attributes
+weight: 03
+---
+
+#SAML Attributes
+
+##Abstract
+
+>` This specification defines a profile for the use of SAML assertions
+>` and request-response messages to be used between participants in the
+>` Identity Assurance federation architecture.
+
+
+##Introduction
+
+The Identity Assurance Hub Service SAML v2.0 Profile describes how
+service providers offering online government services can use any number
+of Hub Services for the brokering of a citizen authentication and
+enrichment of citizen attributes.
+
+This document describes the SAML Attributes to be used in conjunction
+with the Hub Service SAML 2.0 Profile.
+
+###Notation
+
+The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
+"OPTIONAL" in this specification are to be interpreted as described in
+IETF RFC 2119 \[RFC 2119\].
+
+```
+Schema listings appear like this.
+```
+
+```
+Example code listings appear like this.
+```
+
+##SAML Attributes 
+
+This section details the Matching Dataset attributes and mandatory
+attributes supported by this profile for the expressing of data related
+to the SAML assertion subject.
+
+### Required Information
+
+**Identification:**
+http://www.cabinetoffice.gov.uk/resource-library/ida/attributes (this
+corresponds to the target namespace specified in the schema in section
+2.4)
+
+###SAML Attribute Naming
+
+The NameFormat XML attribute in `<Attribute>` elements MUST be
+`urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified` unless otherwise
+specified in the schema.
+
+The XML attribute Name value MUST be one of the descriptors defined in
+section 2.4.
+
+The optional XML attribute FriendlyName value, if present, MUST be one
+of the friendly descriptors associated with the Name descriptor.
+Examples are included later in this document for clarity.
+
+###Attribute Name Comparison
+
+`<Attribute>` elements refer to the same SAML attribute if and only if
+the Name XML attribute values are equal.
+
+###Profile-Specific XML Attributes
+
+This following profile-specific XML attributes MAY be specified for an
+`<AttributeValue>` element as specified in the schema in section 2.4:
+
+-   `From`, a date constructed in accordance with the W3C Date and Time
+    Formats Specification at http://www.w3.org/TR/NOTE-datetime.
+-\   `To`, a date constructed in accordance with the W3C Date and Time
+    Formats Specification at http://www.w3.org/TR/NOTE-datetime
+-   `Language`, represents natural language identifiers as defined by
+    [RFC 3066] with a default of "en-GB".
+-   `Order`, represents the order in which an `<AttributeValue>` element
+    MUST be processed when multiple attribute values exist for and
+    `<Attribute>`. Starting at 1 with increments of 1.
+-   `Verified`, denotes an `<AttributeValue>` as being verified or not in
+    accordance with GPG45.
+
+## SAML Attribute Values
+
+The schema type of the contents of the `<AttributeValue>` element MUST
+be drawn from one of the types specified below.
+
+The xsi:type attribute MUST be present and be given the appropriate value.
+
+The following schema defines the XML attributes and complex types
+supported by this profile:
+
+<%= xsd 'saml_attributes/attributes' -%>
+
+##Matching Dataset Attribute Definitions
+
+### Firstname
+
+This value represents the SAML assertion subject's first name and any
+historic values for the subject's first name as known to the asserting
+entity.
+
+**Name:** MDS_firstname
+
+One or more `<AttributeValue>` elements each containing a PersonNameType
+as specified in the profile-specific schema in section 2.4.
+
+<%= xml 'saml_attributes/firstname' -%>
+
+Fig, 2.5.1.1 Firstname provided without attribute history
+
+Attribute values describing history of Firstname should be identified by
+the inclusion of the profile specific From and To attributes as can be
+seen in the following example.
+
+<%= xml 'saml_attributes/first_name_with_history' -%>
+
+Fig. 2.5.1.2 Firstname and history of Firstname
+
+###Surname
+
+This value represents the SAML assertion subject's surname and any
+historic values for the subject's surname as known to the asserting
+entity.
+
+**Name:** MDS_surname
+
+One or more `<AttributeValue>` elements each containing a PersonNameType
+as specified in the profile-specific schema in section 2.4.
+
+Attribute values describing history of Surname should be identified by
+the inclusion of the profile specific From and To attributes.
+
+<%= xml 'saml_attributes/surname' -%>
+
+###Middle Name(s)
+
+This value represents the SAML assertion subject's middle name(s) and
+any historic values for the subject's middle name(s) as known to the
+asserting entity.
+
+**Name:** MDS_middlename
+
+One or more `<AttributeValue>` elements each containing a PersonNameType
+as specified in the profile-specific schema in section 2.4. Where there
+are multiple middle names for the individual these should be separated
+by a space as shown in the example below.
+
+<%= xml 'saml_attributes/middlename' -%>
+
+Attribute values describing history of Middle Name(s) should be
+identified by the inclusion of the profile specific From and To
+attributes.
+
+###Date of Birth
+
+This value represents the SAML assertion subject's date of birth and any
+historic values for the subject's date of birth as known to the
+asserting entity.
+
+**Name:** MDS_dateofbirth
+
+One or more `<AttributeValue>` elements each containing a DateType as
+specified in the profile-specific schema in section 2.4.
+
+<%= xml 'saml_attributes/date_of_birth' -%>
+
+Attribute values describing history of date of birth should be
+identified by the inclusion of the profile specific From and To
+attributes.
+
+###Gender
+
+This value represents the SAML assertion subject's gender.
+
+**Name:** MDS_gender
+
+A single `<AttributeValue>` element containing a GenderType as specified
+in the profile-specific schema in section 2.4.
+
+**Note: In version 1.2 of the profile history of gender MUST NOT be sent
+by an asserting entity**
+
+<%= xml 'saml_attributes/gender' -%>
+
+###Current Address
+
+This value represents the SAML assertion subject's current address.
+
+**Name:** MDS_currentaddress
+
+One or more `<AttributeValue>` elements each containing an AddressType
+as specified in the profile-specific schema in section 2.4.
+
+<%= xml 'saml_attributes/current_address' -%>
+
+Optionally the UPRN (Unique Property Reference Number) may also be
+included in the subject's address details to uniquely identify the
+address and therefore aid matching where a local data set also includes
+UPRN. UPRNs are integers that can be up to 12 digits in length; they can
+therefore be less than 12 digits long and do not require leading zeros. 
+
+If a non-UK address is represented the `<InternationalPostCode>` element
+MUST be used instead of the UK-centric `<PostCode>` element.
+
+###Previous Address
+
+This value represents the SAML assertion subject's previous address or
+addresses as known to the asserting entity.
+
+**Name:** MDS_previousaddress
+
+One or more `<AttributeValue>` elements each containing an AddressType
+as specified in the profile-specific schema in section 2.4.
+
+<%= xml 'saml_attributes/previous_address' -%>
+
+##Authentication Event Assertion Attribute Definitions
+
+The Authentication Event Assertion, as described in the SAML Profile,
+provides the IDA service with additional contextual information
+regarding the authentication event to be used for transactional
+monitoring purposes. In the case of version 1.2 of the SAML Profile this
+contextual information is to be initially limited to IP Address (of the
+user-agent used for authentication) and the level of assurance achieved
+(as returned within the `<AuthnContext>`). Additional attribute
+definitions will be added during the lifetime of this profile following
+elaboration with Identity Providers and Service Providers.
+
+###IPAddress
+
+This value represents the IP Address as used by the user-agent when
+authenticating the principal.
+
+**Name:** TXN_IPaddress
+
+The single `<AttributeValue>` element contains a IPAddressType as
+specified in the profile-specific schema in section 2.4.
+
+<%= xml 'saml_attributes/ip_address' -%>
+
+###Fraud Event Contextual Information Assertion Attribute Definitions
+
+The Fraud Event Contextual Information Assertion, as described in the
+SAML Profile, provides the IDA service with additional contextual
+information regarding a fraud event.
+
+###GPG45Status
+
+This value represents the resulting status of the GPG45 IPV process
+where fraudulent activity has been identified by the identity provider.
+
+**Name:** FECI_GPG45Status
+
+The single `<AttributeValue>` element contains a GPG45StatusType as
+specified in the profile-specific schema in section 2.4.
+
+***Note that the latest values for the GPG45 status attribute value should be sourced
+from the IPV Operations Manual the example below is indicative only.***
+
+IDPs should return the "*SAML Response -- Fraud Warning Code*" in this
+status field as specified in the IPV Operations Manual.
+
+<%= xml 'saml_attributes/gpg45_status' -%>
+
+###IDPFraudEventID
+
+This value represents the unique IDP specific fraud event reference
+code.
+
+**Name:** FECI_IDPFraudEventID
+
+The single `<AttributeValue>` element contains a IDPFraudEventIDType as
+specified in the profile-specific schema in section 2.4.
+
+<%= xml 'saml_attributes/idp_fraud_event_id' -%>
+

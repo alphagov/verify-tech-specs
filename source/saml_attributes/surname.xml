@@ -1,0 +1,5 @@
+<saml:Attribute FriendlyName="Surname"
+  Name="MDS_surname"
+  NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified">
+  <saml:AttributeValue ida:Language="en-GB" xsi:type="ida:PersonNameType">Doe</saml:AttributeValue>
+</saml:Attribute>

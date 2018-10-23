@@ -1,0 +1,6 @@
+<saml:Attribute FriendlyName="IDPFraudEventID"
+  Name="FECI_IDPFraudEventID"
+  NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified">
+  <saml:AttributeValue
+    xsi:type="ida:IDPFraudEventType">XYZ001975435</saml:AttributeValue>
+</saml:Attribute>

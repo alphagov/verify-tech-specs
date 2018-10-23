@@ -1,0 +1,199 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns="http://www.cabinetoffice.gov.uk/resource-library/ida/attributes" elementFormDefault="qualified" attributeFormDefault="qualified" blockDefault="substitution" targetNamespace="http://www.cabinetoffice.gov.uk/resource-library/ida/attributes"> 
+  <xs:annotation> 
+    <xs:documentation>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:attribute name="From" type="FormattedDateType"/>
+  <xs:attribute name="To" type="FormattedDateType"/>
+  <xs:attribute name="Language" type="xs:language" default="en-GB"/>
+  <xs:attribute name="Order" type="xs:integer"/>
+  <xs:attribute name="Verified" type="xs:boolean" default="false"/>
+  <xs:complexType name="AddressType">
+    <xs:annotation>
+      <xs:documentation>A FormattedAddressType</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="FormattedAddressType">
+        <xs:attribute ref="Language"/>
+        <xs:attribute ref="From"/>
+        <xs:attribute ref="To"/>
+        <xs:attribute ref="Verified"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FormattedAddressType" mixed="true">
+    <xs:sequence>
+      <xs:element name="Line" type="AddressLineType" minOccurs="1" maxOccurs="5"/>
+      <xs:element name="PostCode" type="PostCodeType" minOccurs="0"/>
+      <xs:element name="InternationalPostCode" type="InternationalPostCodeType" minOccurs="0"/>
+      <xs:element name="UPRN" type="UPRNType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="AddressLineType">
+    <xs:annotation>
+      <xs:documentation>A FormattedStringType restricted in length
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="FormattedStringType">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DateTimeType">
+    <xs:annotation>
+      <xs:documentation>A date and time constructed in accordance with the W3C Date and Time Formats Specification at http://www.w3.org/TR/NOTE-datetime.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(\\d\\d\\d\\d)(-(\\d\\d)(-(\\d\\d)(T(\\d\\d):(\\d\\d)(:(\\d\\d)(\\.\\d+)?)?Z)?)?)?"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FormattedDateType">
+    <xs:annotation>
+      <xs:documentation>A date constructed in accordance with the
+        W3C Date and Time Formats Specification at
+        http://www.w3.org/TR/NOTE-datetime.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(\\d\\d\\d\\d)(-(\\d\\d)(-(\\d\\d))?)?"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="DateType">
+    <xs:annotation>
+      <xs:documentation>A FormattedDateType e.g. DoB
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="FormattedDateType">
+        <xs:attribute ref="From"/>
+        <xs:attribute ref="To"/>
+        <xs:attribute ref="Verified"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="EmailAddressType">
+    <xs:annotation>
+      <xs:documentation>Base email address type
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="3"/>
+      <xs:maxLength value="254"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FormattedStringType">
+    <xs:annotation>
+      <xs:documentation>Base type for string use
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0"/>
+      <xs:maxLength value="512"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SimpleGenderType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Male"/>
+      <xs:enumeration value="Female"/>
+      <xs:enumeration value="Not Specified"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="GenderType">
+    <xs:annotation>
+      <xs:documentation>A SimpleGenderType
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="SimpleGenderType">
+        <xs:attribute ref="From"/>
+        <xs:attribute ref="To"/>
+        <xs:attribute ref="Verified"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="PostCodeType">
+    <xs:annotation>
+      <xs:documentation>Type derived from xs:string with a pattern
+        restriction to UK Post Codes
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern
+        value="\[A-Z\]{1,2}\[0-9R\]\[0-9A-Z\]?
+        \[0-9\]\[A-Z-\[CIKMOV\]\]{2}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="InternationalPostCodeType">
+    <xs:annotation>
+      <xs:documentation>Type derived from xs:string representing an
+        international postal code
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="20"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UPRNType">
+    <xs:annotation>
+      <xs:documentation>Type derived from xs:string representing a UPRN
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="12"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="IPAddressType">
+    <xs:annotation>
+      <xs:documentation>Simple IP Address type
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="7"/>
+      <xs:maxLength value="128"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="GPG45StatusType">
+    <xs:annotation>
+      <xs:documentation>GPG45 Status code, see latest version of GPG45 and
+        the operations manual for required values
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="4"/>
+      <xs:maxLength value="8"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="IDPFraudEventIDType">
+    <xs:annotation>
+      <xs:documentation>Unique fraud event ID
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="12"/>
+      <xs:maxLength value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PersonNameType">
+    <xs:annotation>
+      <xs:documentation>A FormattedStringType restricted in length
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="FormattedStringType100">
+        <xs:attribute ref="Language"/>
+        <xs:attribute ref="From"/>
+        <xs:attribute ref="To"/>
+        <xs:attribute ref="Order"/>
+        <xs:attribute ref="Verified"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="FormattedStringType100">
+    <xs:restriction base="FormattedStringType">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

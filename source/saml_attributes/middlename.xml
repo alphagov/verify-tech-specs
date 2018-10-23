@@ -1,0 +1,5 @@
+<saml:Attribute FriendlyName="Middlename(s)"
+  Name="MDS_middlename"
+  NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified">
+  <saml:AttributeValue ida:Language="en-GB" xsi:type="ida:PersonNameType">Mark David</saml:AttributeValue>
+</saml:Attribute>

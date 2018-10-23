@@ -1,0 +1,11 @@
+<saml:Attribute FriendlyName="Previous Address"
+  Name="MDS_previousaddress"
+  NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified">
+  <saml:AttributeValue ida:From="1969-01-11" ida:To="2000-01-11"
+    ida:Language="en-GB" xsi:type="ida:AddressType">
+    <ida:Line>1 Cherry Cottage</ida:Line>
+    <ida:Line>Wurpel Lane</ida:Line>
+    <ida:Line>Reading</ida:Line>
+    <ida:PostCode>RG99 1YY</ida:PostCode>
+  </saml:AttributeValue>
+</saml:Attribute>

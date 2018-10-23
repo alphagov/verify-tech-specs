@@ -1,0 +1,6 @@
+<saml:Attribute FriendlyName="IPAddress"
+  Name="TXN_IPaddress"
+  NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified">
+  <saml:AttributeValue
+    xsi:type="ida:IPAddressType">10.168.8.2</saml:AttributeValue>
+</saml:Attribute>

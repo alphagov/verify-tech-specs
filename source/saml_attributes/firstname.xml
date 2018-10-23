@@ -1,0 +1,3 @@
+<saml:Attribute FriendlyName="Firstname" Name="MDS_firstname" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified">
+  <saml:AttributeValue ida:Language="en-GB" xsi:type="ida:PersonNameType">John</saml:AttributeValue>
+</saml:Attribute>
