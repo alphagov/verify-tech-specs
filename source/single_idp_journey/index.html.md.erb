@@ -2,20 +2,20 @@
 title: Single Provider Journey
 weight: 04
 ---
-# Single Provider Journey
+#Single Provider Journey
 
-## Introduction
+##Introduction
 
 This technical specification describes how the Identity Provider and the Hub Service interact to support the Single Provider journey.
 
 The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this specification are to be interpreted as described in IETF RFC 2119
 
-## 2. Journey Overview
+##2. Journey Overview
 The Single Provider Journey allows for the Identity Provider to initiate a User journey where the Identity Provider selection happens upfront when the User follows a prompt presented by the Identity Provider. The resulting journey through the Hub Service will vary from the current journey as the Identity Provider selection will no longer be necessary.
 
 The Single Provider Journey will be implemented as an additional precursor step to the behaviour defined in IDA SAML Profile. It is intended to supplement the journey and MUST NOT be considered a replacement.
 
-## 3. Definitive List of Available Services
+##3. Definitive List of Available Services
 
 The Hub Service MUST provide a list of available services using an endpoint on the Hub Service domain. The list MUST contain all available services.
 
@@ -32,7 +32,7 @@ The list MAY also provide display content for each service.
 
 The Identity Provider MUST use the list to determine what services are available.
 
-## 4. Journey Technical Description and Requirements
+##4. Journey Technical Description and Requirements
 
 It is expected that the journey will follow the steps outlined below:
 
@@ -57,7 +57,7 @@ Handovers C to F represent the interactions currently defined within the IDA SAM
 
 The Identity Provider MAY ask the user the authenticate at the start of the journey after they follow the prompt, but before Handover A.
 
-### 4.1 Handover A - Journey Initiation Request
+###4.1 Handover A - Journey Initiation Request
 
 To perform the Single Provider Journey data MUST be exchanged in a request between the Identity Provider and Identity Assureance Hub during handover A.
 
@@ -76,20 +76,20 @@ After receiving the message the following checks must occur:
 - The Hub Service MUST validate that the Identity Provider is allowed to initiate this type of journey.
 - The Hub Service MUST bind the data contained within the request to create a session linked to the User’s browser.
 
-### 4.2 Handover B - Redirect from the Hub Service to the Relying Party
+###4.2 Handover B - Redirect from the Hub Service to the Relying Party
 
 Handover B MUST use a HTTP redirect to the Relying Party start page without any special parameters. The Hub Service MUST use the `serviceId` from handover A property to determine the destination URL.
 
 The Hub Service MUST NOT delete the session state established after handover A that links the User’s browser to the chosen Identity Provider and Relying Party.
 
-### 4.3 Handover C - AuthnRequest issued by Service Provider to Hub Service
+###4.3 Handover C - AuthnRequest issued by Service Provider to Hub Service
 
 This handover is defined in section 2.1.3.3 of the IDA SAML Profile. The format of
 the AuthnRequest and the associated behaviour is unchanged.
 
 After handover C, the Hub Service MUST check that the request it has received has been issued by the Relying Party that was originally requested in Handover A. If the the RP requested in handover A doesn’t match the AuthnRequest issuer then the Hub Service MUST infer that the User is in a new unrelated journey.
 
-### 4.4. Handover D - AuthnRequest issued by Hub Service to Identity Provider
+###4.4. Handover D - AuthnRequest issued by Hub Service to Identity Provider
 
 This handover is defined in section 2.1.3.6 of the IDA SAML Profile. The format of
 the AuthnRequest and the associated behaviour is unchanged.
@@ -103,7 +103,7 @@ The Identity Provider SHOULD check the identifier from handover D against the Us
 - Determine whether it will re-authenticate the User
 - Determine the form of security monitoring required.
 
-### 4.5 Handover E - Identity Provider issues Response to Hub Service
+###4.5 Handover E - Identity Provider issues Response to Hub Service
 
 This handover is defined in section 2.1.3.8 of the IDA SAML Profile. The format of the Response and the associated behaviour is unchanged.
 
@@ -111,16 +111,16 @@ The Hub Service MAY use the SAML Response and knowledge of the journey type in t
 
 No changes are required to the message exchanged between the Identity Provider and Hub Service.
 
-### 4.6 Handover F - Hub Service issues Response to Relying Party
+###4.6 Handover F - Hub Service issues Response to Relying Party
 
 This handover is defined in section 2.1.3.27 of the IDA SAML Profile. The format of the Response and the associated behaviour is unchanged.
 
 No changes are required to messages exchanged between the Hub Service and Relying Party.
 
 
-# Appendix A: Indicative user journeys for Single Provider route
+##Appendix A: Indicative user journeys for Single Provider route
 
-## MVP Journey
+###MVP Journey
 
 The diagram in Figure 2 is indicative of the user journey as it will be when this functionality is first available. 
 
@@ -130,7 +130,7 @@ The diagram includes the steps users follow and handover points between each whe
 *Figure 2. Indicative MVP journey*
 
 
-### Step 1. IDP prompt
+####Step 1. IDP prompt
 
 The process in Figure 2 connects the user to the service.
 
@@ -139,33 +139,37 @@ Step 1: IDP prompt in this diagram is the prompt which triggers Handover A. Ther
 <%= inline_svg "single_idp_journey/single-idp-journey-alternate-flow" %>
 *Figure 3. Example of alternate flow also supported by MVP journey*
 
-#### Handover A - Journey initiation request
+#####Handover A - Journey initiation request
 
-### Step 1a: Hub redirect
+####Step 1a: Hub redirect
 MVP design is that this is a redirect. 
-#### Handover B: redirect to Relying Party
 
-### Step 2: Service start page
+#####Handover B: redirect to Relying Party
+
+####Step 2: Service start page
 MVP design is to show the user the service start page to avoid them missing any critical service specific content.
 
 On services where Verify happens part way through the service (eg Universal Credit), the user would continue through the service as usual. At the point at which the service hands the user back to  the Verify Hub, the user continues to step 3.
-#### Handover C: <Authnrequest> to Hub
 
-### Step 3: Verify handover page
+#####Handover C: <Authnrequest> to Hub
+
+####Step 3: Verify handover page
 The primary call to action on the Verify handover page will be to continue with the originating IDP. The page may also inform users about reuse and present alternative ways of accessing the service (including other IDPs) as less prominent options.
-#### Handover D: <Authnrequest> to IDP
 
-### Step 4. IDP sign in page
+#####Handover D: <Authnrequest> to IDP
+
+####Step 4. IDP sign in page
 
 This page may be the IDP sign in or registration landing page, or a custom page for users on this journey. The IDP may not need to re-authenticate the user at this point if they already authenticated before Handover A. IDP must ensure GDPR compliance when a user reuses an identity created outside of the Verify federation.
-#### Handover E: <Response> to Hub
 
-### Step 5. Verify confirmation
+#####Handover E: <Response> to Hub
+
+####Step 5. Verify confirmation
 This page may be customised to users on the single IDP journey.  Users who fail or cancel during the journey must be returned to the hub with the correct SAML response so that the correct messaging can be displayed. The hub will recognise these users as Single IDP route users as long as Handover A has occurred earlier.
 
-### Step 6.
+####Step 6.
 No change to current journey.
-#### Handover F: <Response> to Relying Party
+#####Handover F: <Response> to Relying Party
 
-### Step 7.
+####Step 7.
 No change to current journey.
