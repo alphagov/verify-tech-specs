@@ -1,0 +1,112 @@
+---
+title: eIDAS outbound
+weight: 30
+---
+
+# eIDAS outbound
+
+This document describes how the UK Proxy Node can use a service, as
+defined in the Identity Assurance Hub Service SAML v2.0 Profile, to
+broker citizen authentication for use with eIDAS. This profile describes
+the interactions between the proxy node and the hub service.
+
+![](/images/saml-message-flow.svg)
+
+<%= partial 'images/_saml-message-flow' %>
+
+## UK Proxy Node
+
+Communication between the UK's eIDAS Proxy Service Node and the GOV.UK
+Verify Hub is a variation on the behaviour defined within the Identity
+Assurance Hub Service SAML v2.0 Profile section 2.1.2.
+
+In this profile, the UK's eIDAS Proxy Service Node takes the role of a
+proxy node, the GOV.UK Verify Hub takes the role of the hub service, and
+a Member State Connector Node taks the role of the connector node.
+
+The proxy node is treated as a specialised service provider that is
+connected to the hub service. When communicating with the proxy node in
+this flow, the hub service doesn't attempt to interact with any matching
+services. When issuing a Response to the proxy node as a result of a
+successful verification the hub service will include the Assertion
+elements received from the identity provider's Response.
+
+##Message flow
+
+The following profile steps document the authentication and message flow
+of this profile and should be compared with the full authentication flow
+described in section 2.1 of the Identity Assurance Hub Service SAML v2.0
+Profile.
+
+<%= inline_svg 'eidas_outbound_profile/saml_message_flow' %>
+
+###1. AuthnRequest issued by Connector Node to Proxy Node
+
+In step 1, an AuthnRequest message is delivered to the proxy node's
+single sign-on service location by the user agent.
+
+This message must be structured according to the eIDAS SAML Profile.
+
+###2. AuthnRequest issued by Proxy Node to Hub Service
+
+In step 2, an AuthnRequest message is delivered to the hub service's
+single sign-on service by the user agent
+
+The AuthnRequest message must be signed.
+
+###3. AuthnRequest issued by Hub Service to the Identity Provider
+
+In step 3, the hub service will follow the steps defined between
+sections 2.1.3.3 and 2.1.3.6 of the IDA SAML Profile where the user
+selects an identity provider before issuing a AuthnRequest message
+deliver via the user agent to the selected identity provider.
+
+###4. Response issued by Identity Provider to the Hub Service
+
+In step 4, the identity provider will follow the steps defined between
+sections 2.1.3.7 and 2.1.3.8 of the IDA SAML Profile. The identity
+provider will verify a user's identity before issuing a Response message
+delivered via the user agent to the hub service.
+
+###5. Hub Service issues Response to Proxy Node
+
+In step 5, the hub service issues a Response message delivered by the
+user agent to the proxy node.
+
+The Response must contain all identity provider Assertion elements or an
+error in the form of a status code (and any relevant sub-status code).
+
+All Assertion elements must include the original signature from the
+identity provider. The Assertion elements must be encrypted for the
+proxy node.
+
+The Response must not include any Assertion elements if the user did not
+successfully authenticate at the required level of assurance.
+
+The Response element must be signed. To ensure that the assertion is for
+the proxy node, the Assertion must also be encrypted by the hub service
+using the proxy node's encryption public key.
+
+###6. Proxy Node issues Response to Connector Node
+
+In step 6, The proxy node issues a Response as a message delivered by
+the user agent to the connector node.
+
+The proxy node must validate and transform the Response from the hub
+service to generate the issued Response. The identity provider
+assertions contained in the Response MUST be transformed to produce a
+single assertion in the issued Response.
+
+The Response and Assertion elements must conform to the format required
+by the eIDAS Profile.
+
+The Assertion elements MUST be signed by the proxy node. The signed
+Assertion elements MUST be encrypted by the proxy node using the MS
+Connector Node's encryption public key. The Response MUST be signed by
+the proxy node.
+
+The Response must contain the transformed Assertion element or an error
+in the form of a status code (and any relevant sub-status code).
+
+The Response must not include any Assertion elements if the user did not
+successfully authenticate at the required level of assurance.

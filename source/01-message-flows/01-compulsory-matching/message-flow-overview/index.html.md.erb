@@ -1,0 +1,46 @@
+---
+title: Message flow diagram
+weight: 10
+---
+
+# Message flow diagram
+
+Figure 1 below illustrates the authenticating of a principal using a hub
+service. Each step in the figure is described by this profile.
+
+![](media/image2.jpg){width="6.497222222222222in"
+height="8.441666666666666in"}
+
+Figure 1 - Authentication Flow
+
+## Profile Description
+
+In this profile the hub service has two distinct roles. When processing
+authentication requests from a service provider the hub service acts as
+an identity provider. When sending authentication requests to identity
+providers the hub service acts as a relying party.
+
+In the descriptions below the following are referred to:
+
+**Single Sign-On Service**
+
+This is the authentication request protocol endpoint at the identity
+provider and at a hub service to which the `<AuthnRequest>` message is
+delivered by the user agent.
+
+**Assertion Consumer Service**
+
+This is the authentication request protocol endpoint at the service
+provider and at a hub service to which the `<Response>` message is
+delivered by the user agent.
+
+**Attribute Query Service**
+
+This is the attribute query protocol endpoint at the service provider
+to which the `<AttributeQuery>` message is sent by the hub service.
+
+**Asserting Entity**
+
+This is a hub service (when acting as an IdP with respect to a SP), an
+identity provider, or a service provider that can issue a SAML
+assertion or an asserted attribute.
