@@ -1,5 +1,4 @@
 # Host to use for canonical URL generation (without trailing slash)
-#host: docs.registers.service.gov.uk
 
 # Header-related options
 show_govuk_logo: true
@@ -20,5 +19,5 @@ header_links:
 # Multi-page options
 multipage_nav: true
 collapsible_nav: true
-max_toc_heading_level: 2
+max_toc_heading_level: 1
 enable_search: true
