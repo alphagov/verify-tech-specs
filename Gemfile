@@ -10,4 +10,6 @@ gem 'govuk_tech_docs'
 
 gem 'therubyracer'
 
-gem 'middleman-search', git: 'git://github.com/alphagov/middleman-search.git'
+# The search functionality requires the `middleman-search-gds` gem which is our fork of `middleman-search`
+
+gem 'middleman-search-gds', git: 'https://github.com/alphagov/middleman-search.git'
