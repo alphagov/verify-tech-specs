@@ -1,0 +1,29 @@
+##Status Code Usage
+
+The IDA SAML Profile describes a number of situations where status codes
+are required to be returned to the hub service to describe the
+occurrence of specific events.
+
+All status codes MUST be returned in the SAML `<Response>` element as
+one or more nested `<StatusCode>` elements. SAML Core specifies 4
+top-level status codes that can be returned and a range of subordinate
+status codes that can be returned beneath the top-level status code.
+
+For example, the IDA SAML Profile states that when a principal cancels
+an authentication at the IDP the IDP should respond with a status code
+of `urn:oasis:names:tc:SAML:2.0:status:NoAuthnContext` (see section
+2.1.3.5.1). This would result in the following `<Status>` element in the
+IDP `<Response>`:
+
+> \<saml:Status\>\
+> \<saml:StatusCode
+> Value=\"`urn:oasis:names:tc:SAML:2.0:status:Responder`\"\>\
+> \<saml:StatusCode
+> Value=\"`urn:oasis:names:tc:SAML:2.0:status:NoAuthnContext`\"/\>\
+> \</saml:StatusCode\>
+>
+> \</saml:Status\>
+
+Any status codes MUST be returned as specified in SAML Core with the
+status code values as specified in the IDA SAML Profile for a particular
+event.
