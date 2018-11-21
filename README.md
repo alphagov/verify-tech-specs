@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/alphagov/verify-tech-specs.svg?branch=master)](https://travis-ci.com/alphagov/verify-tech-specs)
+
 # tech-spec
 Playground for technical specification content design
 
@@ -81,7 +83,7 @@ the HTML and asset files ready to be published.
 
 ## Code of conduct
 
-Please refer to the `alphagov` [code of conduct](https://github.com/alphagov/code-of-conduct). 
+Please refer to the `alphagov` [code of conduct](https://github.com/alphagov/code-of-conduct).
 
 ## Licence
 
