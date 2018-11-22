@@ -16,6 +16,11 @@ header_links:
 
 # google_site_verification:
 
+# Show a block at the bottom of the page that links to the page source, so readers can easily contribute back to the documentation.
+
+show_contribution_banner: true
+github_repo: alphagov/verify-tech-specs/
+
 # Multi-page options
 multipage_nav: true
 collapsible_nav: true
