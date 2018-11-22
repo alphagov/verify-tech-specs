@@ -1,0 +1,14 @@
+lib/
+logs/
+script/
+source/
+vendor/
+.github/
+.ruby-version
+.ruby-gemset
+.travis.yml
+Dockerfile
+docker-compose.yml
+Gemfile
+Gemfile.lock
+
