@@ -1,7 +1,8 @@
 module SnippetHelpers
-  def xml(name)
+  def xml(rel_path)
     root = Middleman::Application.root
-    file_path = File.join(root, 'source',"#{name}.xml")
+    base_path = caller_locations.first.path
+    file_path = File.join(root, 'source', File.dirname(base_path),"#{rel_path}.xml")
     return "```\n#{File.read(file_path)}```"
   end
 

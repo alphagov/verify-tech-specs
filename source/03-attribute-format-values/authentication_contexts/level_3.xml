@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  targetNamespace="urn:uk:gov:cabinet-office:tc:saml:authn-context:level3"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns="urn:uk:gov:cabinet-office:tc:saml:authn-context:level3"
+  finalDefault="extension"
+  blockDefault="substitution"
+  version="2.0">
+  <xs:redefine
+    schemaLocation="saml-schema-authn-context-types-2.0.xsd">
+    <xs:annotation>
+      <xs:documentation>
+        Class identifier:
+        urn:uk:gov:cabinet-office:tc:saml:authn-context:level3
+        Document identifier: saml-schema-authn-context-ip-2.0
+        Location: http://docs.oasis-open.org/security/saml/v2.0/
+        Revision history:
+        V1.2 (Sept, 2014):
+        New authentication context class schema for SAML V2.0 - denotes
+        authentication at LoA3
+      </xs:documentation>
+    </xs:annotation>
+  </xs:redefine>
+</xs:schema>

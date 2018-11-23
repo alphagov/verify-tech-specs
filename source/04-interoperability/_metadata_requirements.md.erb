@@ -1,0 +1,62 @@
+##Metadata Requirements
+
+###Service Provider and Matching Service Metadata
+
+####SAML Metadata
+
+Service Providers and matching services will be required to provide
+content equivalent to standard SAML metadata elements to describe the
+keys, endpoints and contact details required by their services and for
+operation with the hub service. This metadata SHOULD be provided out of
+band via methods described in the GOV.UK Verify on-boarding guide.
+
+Service Provider Metadata will include keys, endpoints and contact
+elements defined in standard SAML metadata.
+
+####Additional Metadata
+
+Service Providers MUST provide additional metadata required for
+connection to the hub service including Level of Assurance requirements,
+and matching requirements (endpoints and process steps).
+
+This additional service provider metadata will be gathered out-of-band
+and will be specified in the GOV.UK Verify on-boarding guide.
+
+###IDP Metadata
+
+####SAML Metadata
+
+Identity Providers will be required to provide content equivalent to
+standard SAML metadata elements to describe the keys, endpoints and
+contact details required for operation with the hub service. This
+metadata SHOULD be provided out of band via methods described in the
+GOV.UK Verify IDP on-boarding documentation.
+
+Identity Provider Metadata will include keys, endpoints and contact
+elements defined in standard SAML metadata.
+
+####Additional Metadata
+
+Identity Providers MUST provide additional metadata required for
+connection to the hub service such as user interface elements and
+instructional text for the hub IDP selection process.
+
+This additional identity provider metadata will be gathered out-of-band
+and will be specified in the GOV.UK Verify on-boarding guide.
+
+###Federation Metadata
+
+The hub service MUST host a SAML metadata document, known as the
+federation metadata, that describes the identity providers and the hub
+service as SAML entities using `<EntityDescriptor>` elements.
+
+The hub service MUST be described using a `<SPSSODescriptor>` with its
+signing and encryption certificates described in `<KeyDescriptor>`
+elements.
+
+Each identity provider MUST be described using a `<IDPSSODescriptor>`
+with its signing certificate described in a `<KeyDescriptor>` element.
+
+All service providers, matching services, identity providers, and the
+hub service MUST regularly consume the federation metadata so that they
+have up to date metadata for the entities that they communicate with.

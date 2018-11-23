@@ -1,0 +1,89 @@
+##Conformance
+
+This profile follows the criteria for conformance defined in the
+SAML 2.0 document titled "Conformance Requirements for the OASIS
+Security Assertion Markup Language (SAML) V2.0" [SAMLConf]. This
+section details specific conformance criteria that must be met for
+the Identity Assurance Hub Service. In addition, the following
+sections of the \[SAMLConf\] document MUST be adhered to with the
+listed amendments:
+
+- 3.4 Implementation of Encrypted Elements
+- 3.6 Metadata Structures
+- 3.7 Metadata Interoperation
+- 4 XML Digital Signature and XML Encryption
+  - Amendment: MUST utilise SHA-256 instead of SHA1
+- 5 Use of SSL 3.0 or TLS 1.0[^13]
+  - Amendment: MUST utilise TLS 1.2 or higher and NOT SSL 3.0 or
+    TLS 1.0
+
+####Operational Modes
+
+Within the Identity Assurance Hub Service Profile, the following
+operational modes have been identified that describes the roles
+each software components can play in conforming to this profile.
+These operational modes are:
+
+- IdP - Identity Provider
+- SP - Service Provider
+- HS - Hub Service
+
+####Feature Matrix
+
+<div style="height:1px;font-size:1px;">&nbsp;</div>
+| _Feature_                                       | _Service Provider_ | _Identity Provider_ | _Hub Service_ |
+|-------------------------------------------------|--------------------|---------------------|---------------|
+| Web SSO `<AuthnRequest>`, HTTP redirect         | MUST NOT           | MUST NOT            | MUST NOT      |
+| Web SSO `<AuthnRequest>`, HTTP POST             | MUST               | MUST                | MUST          |
+| Web SSO `<AuthnRequest>`, HTTP artifact         | MUST NOT           | MUST NOT            | MUST NOT      |
+| Web SSO `<Response>`, HTTP POST                 | MUST               | MUST                | MUST          |
+| Web SSO `<Response>`, HTTP artifact             | MUST NOT           | MUST NOT            | MUST NOT      |
+| Single Logout `<LogoutRequest>`, HTTP Redirect  | N/A                | N/A                 | N/A           |
+| Single Logout `<LogoutRequest>`, HTTP POST      | N/A                | N/A                 | N/A           |
+| Single Logout `<LogoutRequest>`, SOAP           | N/A                | N/A                 | N/A           |
+| Single Logout `<LogoutRequest>`, HTTP Artifact  | MUST NOT           | MUST NOT            | MUST NOT      |
+| Single Logout `<LogoutResponse>`, HTTP Redirect | N/A                | N/A                 | N/A           |
+| Single Logout `<LogoutResponse>`, HTTP POST     | N/A                | N/A                 | N/A           |
+| Single Logout `<LogoutResponse>`, SOAP          | N/A                | N/A                 | N/A           |
+| Single Logout `<LogoutResponse>`, HTTP Artifact | MUST NOT           | MUST NOT            | MUST NOT      |
+| Attribute Query, SOAP                           | N/A                | N/A                 | N/A           |
+| Metadata Structures                             | MUST               | MUST                | MUST          |
+| Metadata Interoperation                         | MUST               | MUST                | MUST          |
+<div style="height:1px;font-size:1px;">&nbsp;</div>
+
+In order to be conformant with the Identity Assurance Hub
+Service profile, each of the software components described in
+the Operational Modes section must provide support for the
+features detailed below:
+
+All other SAML profiles and bindings as defined in [SAMLCore], [SAMLBind] and [SAMLProf] are not used within this profile.
+
+###Implementation of SAML-Defined Identifiers
+
+All relevant operational modes MUST implement the following SAML-defined
+identifiers:
+- All Attribute Name Format identifiers defined in Section 5 of this
+  document and Section 8.2 of \[SAMLCore\]
+- The name identifier Persistent Identifier defined in Section 8.3 of
+    \[SAMLCore\]
+
+Implementations conforming to this Identity Assurance Hub Service
+Profile MUST permit the use of all identifier constants described in
+Sections 8.2 of \[SAMLCore\] as well as all identifier constants
+described in Section 5 of this document. Conforming implementations MUST
+also permit the use of the name identifier Persistent Identifier as
+defined in Section 8.3 of \[SAMLCore\].
+
+Sections 8.3.7 (persistent name identifiers) defines normative
+processing rules for the producer of such identifiers. All normative
+processing rules in Sections 8.3.7 MUST be supported by conforming
+implementations.
+
+###Security Models for SOAP and URI Bindings
+
+The following security models are mandatory for meeting conformance to
+this profile using the SOAP binding as well as for the SAML URI binding.
+SAML authorities and requesters MUST implement the following method:
+-   HTTP over SSL 3.0 or TLS 1.02 (or higher) server authentication with
+    server-side certificates to ensure the confidentiality and integrity
+    of all messages is maintained during transport.

@@ -1,0 +1,51 @@
+##Name Identifiers
+
+This section details the policy for use and creation of persistent
+identifiers by the service provider matching services.
+
+###Persistent Identifier
+
+**URI:** `urn:oasis:names:tc:SAML2.0:nameid-format:persistent`
+
+This identifier is used between the hub and identity provider, and the
+hub and service provider. It conforms to the \[SAMLCore\] specification
+for persistent name identifiers.
+
+The persistent identifier MUST be generated in conformance to
+\[SAMLCore\] by the identity provider and included in the assertion for
+a given principal. The identity provider SHOULD ensure that the
+persistent identifier is valid for an extended period of time, e.g.
+several months to avoid unnecessary re-matching occurring.
+
+To ensure privacy of the principal is maintained across providers, the
+persistent identifier stored for the same principal MUST be unique
+between each of the following entities:
+- Identity Provider
+- Service Provider
+
+In order to ensure uniqueness of the persistent identifier and to ensure
+no identifiers are stored within the hub service, an algorithm will be
+used for generation of the persistent identifier. This will be
+implemented within every service provider (within the service provider
+matching service.)
+
+For a single principal, the identity provider MUST generate a different,
+unique persistent identifier for the unique SPNameQualifier it receives
+in the `<AuthnRequest>`.
+
+Upon receiving an `<AttributeQuery>`, the service provider matching
+service must obfuscate the received persistent identifier by applying a
+hashing algorithm. The value fed into the hashing algorithm MUST be a
+concatenation of the partner identifier of the identity provider (A),
+the partner identifier of the entity generating the identifier (B), and
+the received persistent identifier - originating from the identity
+provider (C). Therefore, the following format will be used:
+
+hash{A+B+C}
+
+The hashing algorithm to use MUST be SHA-256.
+
+The service providers MUST NOT locally store any persistent identifiers
+from any assertions, other than the identifier that they have generated
+using the above algorithm, which MUST be used when writing to the local
+mapping service.
