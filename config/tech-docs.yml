@@ -19,5 +19,5 @@ header_links:
 # Multi-page options
 multipage_nav: true
 collapsible_nav: true
-max_toc_heading_level: 1
+max_toc_heading_level: 2
 enable_search: true
