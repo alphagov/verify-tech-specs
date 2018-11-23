@@ -1,9 +1,5 @@
----
-title: eIDAS outbound
-weight: 30
----
 
-# eIDAS outbound
+## Using Verify to access EU services
 
 This document describes how the UK Proxy Node can use a service, as
 defined in the Identity Assurance Hub Service SAML v2.0 Profile, to
@@ -12,7 +8,7 @@ the interactions between the proxy node and the hub service.
 
 <%= image_tag "saml-message-flow.svg" %>
 
-## UK Proxy Node
+### UK Proxy Node
 
 Communication between the UK's eIDAS Proxy Service Node and the GOV.UK
 Verify Hub is a variation on the behaviour defined within the Identity
@@ -29,7 +25,7 @@ services. When issuing a Response to the proxy node as a result of a
 successful verification the hub service will include the Assertion
 elements received from the identity provider's Response.
 
-##Message flow
+### Message flow
 
 The following profile steps document the authentication and message flow
 of this profile and should be compared with the full authentication flow

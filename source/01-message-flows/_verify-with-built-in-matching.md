@@ -1,12 +1,93 @@
----
-title: Steps in the message flow
-weight: 20
----
+## Verify journey with built-in matching
 
-# Steps in the message flow
+This hub service profile is defined to support federated authentication
+to government services and the future support of single sign-on (SSO).
+The current profile is based on the [SAML Web Browser SSO Profile](LINK).
 
+This version of the profile is a reflection of the current IDAP Hub
+Service and is simplified from version 1.0 removing elements not
+currently required for government services. Features that have been
+removed from the profile may be reintroduced in future versions as
+requirements evolve.
 
-## HTTP Resource Request to Service Provider
+### Web Browser SSO Profile
+
+In the scenario supported by the Hub Service profile a principal
+attempts to access a resource at a service provider that requires a
+security context. The principal is authenticated by an identity
+provider, which provides an assertion to the Hub Service. The hub
+service forwards the assertion to the service provider. The service
+provider may then establish a security context for the principal
+
+The Single Logout Profile is not supported by this profile. On
+redirection to the hub service following a successful authentication
+Identity Providers MUST close any authentication session that has been
+created (LINK 2.1.3.8).
+
+This profile is implemented using the SAML Authentication Request
+protocol and the SAML Attribute Query protocol. It uses several of the
+existing SAML profiles, namely the Web SSO Profile and Assertion
+Query/Request Profile. It is assumed that the principal is using a
+standard commercial browser and can authenticate to the identity
+provider by some means outside the scope of SAML.
+
+By default all user agent exchanges MUST utilise TLS 1.2 or higher.
+Message integrity and confidentiality will be maintained through the use
+of asymmetric key signing and encryption.
+
+### Required Information
+
+**Identification:**
+`urn:uk:gov:cabinet-office:SAML:2.0.profiles:hubservice:sso`
+
+**SAML Confirmation Method Identifiers:** The SAML V2.0 "bearer"
+confirmation method identifier, `urn:oasis:names:tc:SAML:2.0:cm:bearer`,
+is used by this profile.
+
+**Description:** A profile in which a central Hub Service provides
+brokering of authentication requests between Service Providers and
+Identity Providers;.
+
+### Message flow diagram
+
+Figure 1 below illustrates the authenticating of a principal using a hub
+service. Each step in the figure is described by this profile.
+
+**Figure needed - Authentication Flow**
+
+#### Profile Description
+
+In this profile the hub service has two distinct roles. When processing
+authentication requests from a service provider the hub service acts as
+an identity provider. When sending authentication requests to identity
+providers the hub service acts as a relying party.
+
+In the descriptions below the following are referred to:
+
+**Single Sign-On Service**
+
+This is the authentication request protocol endpoint at the identity
+provider and at a hub service to which the `<AuthnRequest>` message is
+delivered by the user agent.
+
+**Assertion Consumer Service**
+
+This is the authentication request protocol endpoint at the service
+provider and at a hub service to which the `<Response>` message is
+delivered by the user agent.
+
+**Attribute Query Service**
+
+This is the attribute query protocol endpoint at the service provider
+to which the `<AttributeQuery>` message is sent by the hub service.
+
+**Asserting Entity**
+
+This is a hub service (when acting as an IdP with respect to a SP), an
+identity provider, or a service provider that can issue a SAML
+assertion or an asserted attribute.
+
+#### HTTP Resource Request to Service Provider
 
 In step 1, the principal, via a HTTP User Agent, makes a HTTP request
 for a secured resource at service provider without a security context.
@@ -17,7 +98,7 @@ RelayState mechanism that a service provider MAY use to associate the
 profile exchange with the original request. The service provider MUST
 reveal as little of the request as possible in the RelayState value.
 
-## Service Provider Determines Hub Service
+#### Service Provider Determines Hub Service
 
 In step 2, the service provider determines which hub service to use to
 broker the authentication request.[^1]
@@ -26,7 +107,7 @@ This step is implementation-dependent. The hub service uri for
 authentication requests will be supplied by the hub service itself.
 There will only be a logical instance of the hub service.
 
-## `<AuthnRequest>` issued by Service Provider to Hub Service
+#### `<AuthnRequest>` issued by Service Provider to Hub Service
 
 In step 3, an `<AuthnRequest>` message is delivered to the hub service's
 single sign-on service by the user agent. LINK 2.1.3.2. above for
@@ -37,7 +118,7 @@ The `<AuthnRequest>` message MUST be signed.
 LINK section 4 for a list of SAML profiles and bindings that MUST be
 supported.
 
-## Hub Service presents Identity Provider choices to principal
+#### Hub Service presents Identity Provider choices to principal
 
 In step 4, the hub service selects identity providers to display to
 the principal based upon relying party \[supplied\] metadata and
@@ -52,7 +133,7 @@ will be provided out of band.
 The hub service MUST process the `<AuthnRequest>` message as
 described in \[SAMLCore\].
 
-## Principal selects Identity Provider with which to authenticate
+#### Principal selects Identity Provider with which to authenticate
 
 In step 5, the principal is presented with a list of identity providers
 that can provide an asserted identity at the level required by the
@@ -61,7 +142,7 @@ to use.
 
 This step is implementation-dependent.[^2]
 
-## Alternate Flow: Principal cancels Identity Provider Selection
+#### Alternate Flow: Principal cancels Identity Provider Selection
 
 At this point in the flow the principal MAY indicate (for example by
 selecting a cancel button available on the Identity Provider selection
@@ -77,7 +158,7 @@ The hub service must then execute step 26 within the flow to issue this
 response to the service provider, without executing any intermediary
 steps.
 
-## `<AuthnRequest>` issued by Hub Service to the Identity Provider
+#### `<AuthnRequest>` issued by Hub Service to the Identity Provider
 
 In step 6, the location of the identity provider\'s single sign-on
 service is retrieved from the identity provider's metadata and a new
@@ -108,7 +189,7 @@ parameter alerts the Identity Provider to the principal's intention
 allowing for the optional delivery of a more appropriate user
 experience.
 
-## Identity Provider successfully identifies Principal
+#### Identity Provider successfully identifies Principal
 
     In step 7, the identity provider identifies the principal by some
     means outside the scope of this profile. This may require a new act
@@ -125,7 +206,7 @@ authenticate the user as dictated by standards (e.g. GPG 44 / 45),
 subject to any requirements included in the `<AuthnRequest>` and
 specifically the `<RequestedAuthnContext>` element[^3].
 
-## Error Case: Principal fails authentication with Identity Provider
+#### Error Case: Principal fails authentication with Identity Provider
 
 At this point in the flow, the principal may fail to successfully
 authenticate to the identity provider. For example, if the principal
@@ -141,7 +222,7 @@ It is recognised that additional error codes will be required as
 dictated by user experience research. These additional error codes will
 appear in future iterations of the SAML profile.
 
-## Error Case: Principal fails authentication at the appropriate level with Identity Provider
+#### Error Case: Principal fails authentication at the appropriate level with Identity Provider
 
 At this point in the flow the identity provider may be unable to
 authenticate the user to the level specified in the
@@ -161,7 +242,7 @@ the hub service. The contents of this message is implementation
 dependent but should explain to the principal, why they are being sent
 back to the hub service.
 
-## Alternate Flow: Principal cancels authentication attempt
+#### Alternate Flow: Principal cancels authentication attempt
 
 At this point in the flow, the principal may indicate (for example by
 selecting a cancel button available on the identity provider login page)
@@ -174,7 +255,7 @@ with a sub-status code of
 `<StatusDetail>` element containing a `<StatusValue>` element with the
 value authn-cancel.
 
-## Alternate Flow: Principal unable to reach appropriate level at this time with Identity Provider -- Pending State[^4]
+#### Alternate Flow: Principal unable to reach appropriate level at this time with Identity Provider -- Pending State[^4]
 
 In this case the principal is able to authenticate with the identity
 provider but not at the level of assurance requested by the hub service
@@ -187,7 +268,7 @@ hub service (as per step 8) at a lower level of assurance but that
 `<StatusDetail>` containing a `<StatusValue>` element with the value
 loa-pending.
 
-## Identity Provider issues `<Response>` to Hub Service
+#### Identity Provider issues `<Response>` to Hub Service
 
 In step 8, the identity provider issues a `<Response>` message delivered
 via the user agent to the hub service. The message MUST contain either
@@ -225,7 +306,7 @@ return a Fraud Event Response as described in 2.1.3.8.1 below.
 On redirection to the hub service the Identity Provider MUST close any
 authentication session that has been created.[^6]
 
-## Fraud Event Response: Identity Provider identifies actual or potentially fraudulent activity
+#### Fraud Event Response: Identity Provider identifies actual or potentially fraudulent activity
 
 Notification of a fraud event to the hub service by an identity provider
 MUST be via a SAML `<Response>` using the same basic pattern as for a
@@ -312,7 +393,7 @@ element containing a `<StatusValue>` element with a value equal to the
 GPG45 status code as sent by the identity provider in the Fraud Error
 Response.
 
-## Principal provides user-entered attributes
+#### Principal provides user-entered attributes
 
 In step 13, if the required attributes, as identified in 2.1.3.10 are
 not available from the MatchingDataSet then the principal MAY be
@@ -340,7 +421,7 @@ setting the InResponseTo attribute when the hub service constructs a
 `<Response>` element for return to the service provider (LINK section
 2.1.4.2 for `<Response>` Usage).
 
-## `<AttributeQuery>` issued by Hub Service to Matching Service
+#### `<AttributeQuery>` issued by Hub Service to Matching Service
 
 To enable a service provider to obtain a match to a local identifier the
 `<AttributeQuery>` construct is used to initiate a local matching
@@ -377,7 +458,7 @@ MUST include the original signature from the identity provider.
 The hub service MUST use the synchronous SAML SOAP binding and MUST
 authenticate itself to the service provider by signing the message.
 
-## Matching Service generates Persistent Identifier
+#### Matching Service generates Persistent Identifier
 
 In step 21, the matching service will hash the PersistentID in order to
 generate a persistent identifier to optimise subsequent matching and
@@ -392,7 +473,7 @@ PersistentID contained in the identity provider assertion. The
 PersistentID MUST be generated in accordance with the details provided
 in section 3.1
 
-## Matching Service matches Name Identifier
+#### Matching Service matches Name Identifier
 
 In step 22, the service provider matching service attempts to uniquely
 match the principal contained in the identity provider assertion (and
@@ -432,7 +513,7 @@ defined in \[SAMLCore\].
 The details of the steps taken to perform the match against the local
 identity repository are implementation dependent.
 
-## Error Case: Matching Service Fails to Uniquely Match Principal
+#### Error Case: Matching Service Fails to Uniquely Match Principal
 
 There are a number of status codes that MAY be generated during the
 match process. The first failure scenario during the match is when the
@@ -460,7 +541,7 @@ containing a status code `urn:oasis:names:tc:SAML:2.0:status:Success` and
 a sub-status code of
 `urn:uk:gov:cabinet-office:tc:saml:statuscode:no-match`.
 
-## Matching Service updates local mapping service
+#### Matching Service updates local mapping service
 
 In step 23, the matching service MUST update its local mapping service
 to store the link between the locally generated PersistentID generated
@@ -494,13 +575,13 @@ The details of how the local, temporary identifier are generated and
 updated are outside the scope of this specification and are
 implementation dependent.
 
-## Matching Service extracts required attributes
+#### Matching Service extracts required attributes
 
 In step 24, the matching service MUST extract any provided attribute
 values from the assertions contained in the `<AttributeQuery>` from the
 hub service.
 
-## Matching Service issues `<Response>` message to the Hub Service
+#### Matching Service issues `<Response>` message to the Hub Service
 
 In step 25, the matching service issues a `<Response>` message to the
 hub service.
@@ -531,14 +612,14 @@ after it is signed.
 The matching service MUST authenticate itself to the hub service by
 signing the `<Response>`.
 
-## Hub Service combines response and re-asserts
+#### Hub Service combines response and re-asserts
 
 In step 26, the hub service MUST extract the `<Assertion>` ret`urned` in
 2.1.3.25 and create a new `<Response>` to issue to the service provider.
 
 This `<Response>` MUST be signed by the hub service.
 
-## Hub Service issues `<Response>` to Service Provider
+#### Hub Service issues `<Response>` to Service Provider
 
 In step 26, the hub service issues a `<Response>` message delivered by
 the user agent to the service provider. The response message MUST
@@ -561,7 +642,7 @@ that the assertion is for the specific target SP the `<Assertion>` must
 also be encrypted by the hub service after it is signed using the
 service provider's public key.
 
-## Service Provider grants or denies access to Principal
+#### Service Provider grants or denies access to Principal
 
 In step 27, having received the response from the hub service, the
 service provider processes the `<Response>` and `<Assertion>` and grants
