@@ -180,10 +180,10 @@ experience.
 
 ### Identity Provider successfully identifies Principal
 
-    In step 7, the identity provider identifies the principal by some
-    means outside the scope of this profile. This may require a new act
-    of authentication, or it may reuse an existing authenticated
-    session.
+In step 7, the identity provider identifies the principal by some
+means outside the scope of this profile. This may require a new act
+of authentication, or it may reuse an existing authenticated
+session.
 
 The identity provider MUST establish the identity of the principal or
 return an error to the hub service (LINK following sub-sections for
@@ -327,14 +327,14 @@ following elements:
 
 An `<AttributeStatement>` for the fraud event:
 
-    -   Where a contra-indicator has been identified according to GPG45
-        the corresponding GPG45 status code MUST be included as an
-        attribute value
+-   Where a contra-indicator has been identified according to GPG45
+    the corresponding GPG45 status code MUST be included as an
+    attribute value
 
-    -   An attribute MUST be included denoting the unique IDP specific
-        fraud event reference code. This attribute value MUST be derived
-        from the IDP name, a date-time stamp, and a sequence number for
-        the event.
+-   An attribute MUST be included denoting the unique IDP specific
+    fraud event reference code. This attribute value MUST be derived
+    from the IDP name, a date-time stamp, and a sequence number for
+    the event.
 
 An `<AuthnContext>` that MUST include an `<AuthnContextClassRef>`
     denoting a fraud event, and the fact that a level of assurance has
