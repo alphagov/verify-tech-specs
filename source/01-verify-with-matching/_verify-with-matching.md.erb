@@ -646,3 +646,69 @@ own error if it fails to establish a security context for the principal.
 
 The service provider MUST process the `<Response>` message and the
 enclosed `<Assertion>` element as described in \[SAMLCore\].
+
+[^1]: In the case of the IDAP Hub Service there is only one hub service.
+    This may be reviewed in future iterations of the SAML profile.
+
+[^2]: User experience testing will determine the user interface design
+    in the hub service. This is currently in process.
+
+[^3]: In the IDAP Hub Service only the level of assurance will be
+    included in `<RequestedAuthnContext>`
+
+[^4]: Note that pending state is not currently implemented and will be
+    subject to elaboration with identity providers and service providers
+    during the lifespan of v1.3 of this profile.
+
+[^5]: Additional attribute definitions will be added during the lifetime
+    of this profile following elaboration with Identity Providers and
+    Service Providers.
+
+[^6]: Version 1.2 does not include support for a Single Logout Profile
+    or the concept of single sign-on across HMG services.
+
+[^7]: Additional information relating to the detailed fraud event for
+    fraud reporting purposes will be sent via an out-of-band process
+    e.g. secure email.
+
+[^8]: For v1.3 the hub service will return an AuthnFailed response to
+    the service provider (step 26 in the SSO flow) on receipt of a Fraud
+    Event Response. This response will include a GPG45 status code as
+    provided in the Fraud Event Response.
+
+[^9]: User experience testing is currently exploring how this will be
+    presented. This has not been implemented in the IDAP Hub Service.
+
+[^10]: Session monitoring requirements will be elaborated during the
+    lifetime of v1.3 to be included in the authentication event
+    assertion. `<SubjectLocality>` is included for compatibility with
+    COTS products.
+
+[^11]: This is not implemented in the IDAP Hub Service.
+
+[^12]: This is not implemented in the IDAP Hub Service.
+
+[^13]: Security standards such as those specified in SAML2 Conformance
+    are subject to GDS review and may be subject to incremental change
+    to protect the integrity and security of user data and to protect
+    HMG services from attack.
+
+[^14]: Additional attribute definitions will be added during the
+    lifetime of this profile following elaboration with Identity
+    Providers and Service Providers.
+
+[^15]: Version 1.3 does not include support for a Single Logout Profile
+    or the concept of single sign-on across HMG services.
+
+[^16]: Additional information relating to the detailed fraud event for
+    fraud reporting purposes will be sent via an out-of-band process
+    e.g. secure email.
+
+[^17]: For v1.3 the hub service will return an AuthnFailed response to
+    the service provider (step 26 in the SSO flow) on receipt of a Fraud
+    Event Response. This response will include a GPG45 status code as
+    provided in the Fraud Event Response.
+
+[^18]: In the case of the reference architecture there is only one hub
+    service. This may be reviewed in future iterations of the SAML
+    profile.

@@ -1,6 +1,9 @@
 require 'govuk_tech_docs'
 
 GovukTechDocs.configure(self, livereload: { js_host: "localhost" })
+
+self.config[:markdown][:footnotes] = true
+
 require "lib/snippet_helpers"
 helpers SnippetHelpers
 
