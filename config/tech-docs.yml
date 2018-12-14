@@ -1,10 +1,11 @@
 # Host to use for canonical URL generation (without trailing slash)
 
 # Header-related options
-show_govuk_logo: true
+show_govuk_logo: false
 service_name: Verify Technical Specifications
 service_link: https://govuk-verify.cloudapps.digital/
-phase: TEST
+phase: TEST DEPLOYMENT
+prevent_indexing: true
 
 # Links to show on right-hand-side of header
 header_links:
