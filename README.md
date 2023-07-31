@@ -3,6 +3,10 @@
 # tech-spec
 Playground for technical specification content design
 
+>**GOV.UK Verify has closed**
+>
+>This repository is out of date and has been archived
+
 # Technical Documentation
 
 ## Getting started
